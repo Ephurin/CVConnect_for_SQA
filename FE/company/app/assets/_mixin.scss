@@ -1,0 +1,42 @@
+@use "colors" as c;
+
+$breakpoint-xs: 0px;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1400px;
+
+// Mixin để dùng gọn
+@mixin respond-max($breakpoint) {
+  @media (max-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: c.$color-gray-500;
+
+    &:hover {
+      background: c.$color-gray-600;
+    }
+  }
+}
+
+@mixin box-shadow {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+@mixin box-shadow-tight {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}

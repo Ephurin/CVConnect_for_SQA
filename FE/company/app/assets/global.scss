@@ -1,0 +1,14 @@
+// ~/assets/global.scss
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+// REMOVE @import "colors.scss"; AND @import "_mixin.scss" IF they were here
+
+html,
+body {
+  // Now this mixin should work correctly in production
+  @include custom-scrollbar;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  // Change to 'Noto Sans' based on your main.css and Google Fonts link
+  font-family: 'Noto Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
