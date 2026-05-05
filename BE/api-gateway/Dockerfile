@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . .
 COPY settings.xml /root/.m2/settings.xml
-RUN mvn clean package -pl api-gateway -am -DskipTests spring-boot:repackage
+RUN mvn clean package -pl api-gateway -am -DskipTests
 
 FROM eclipse-temurin:17-jdk
 

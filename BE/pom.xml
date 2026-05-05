@@ -15,6 +15,7 @@
     <name>cvconnect</name>
 
     <modules>
+        <module>common-lib</module>
         <module>api-gateway</module>
         <module>core-service</module>
         <module>user-service</module>

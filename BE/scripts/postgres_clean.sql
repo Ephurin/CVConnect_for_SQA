@@ -1,0 +1,970 @@
+CREATE DATABASE "cvconnect-core-service";
+\c cvconnect-core-service;
+CREATE TABLE IF NOT EXISTS attach_file (
+    id BIGSERIAL PRIMARY KEY,
+    original_filename VARCHAR(255) NOT NULL,
+    base_filename VARCHAR(255) NOT NULL,
+    extension VARCHAR(50) NOT NULL,
+    filename VARCHAR(255) NOT NULL,
+    format VARCHAR(100) NULL ,
+    resource_type VARCHAR(100) NOT NULL,
+    secure_url VARCHAR(500) NOT NULL,
+    type VARCHAR(100) NOT NULL,
+    url VARCHAR(500) NOT NULL,
+    public_id VARCHAR(255) NOT NULL,
+    folder VARCHAR(255),
+
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100)
+);
+
+CREATE TABLE IF NOT EXISTS organization (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    logo_id BIGINT,
+    cover_photo_id BIGINT,
+    website VARCHAR(255),
+    staff_count_from INT,
+    staff_count_to INT,
+
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100)
+);
+
+CREATE TABLE IF NOT EXISTS industry (
+    id BIGSERIAL PRIMARY KEY,
+
+    code VARCHAR(50) UNIQUE NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100)
+);
+
+INSERT INTO industry (code, name, created_by) VALUES
+('IT', 'Công nghệ thông tin', 'admin'),
+('EDU', 'Giáo dục & Đào tạo', 'admin'),
+('FIN', 'Tài chính - Ngân hàng', 'admin'),
+('INS', 'Bảo hiểm', 'admin'),
+('HEA', 'Y tế & Chăm sóc sức khỏe', 'admin'),
+('REA', 'Bất động sản', 'admin'),
+('CON', 'Xây dựng', 'admin'),
+('MAN', 'Sản xuất - Chế biến', 'admin'),
+('TRA', 'Thương mại - Bán lẻ', 'admin'),
+('AGR', 'Nông nghiệp & Thủy sản', 'admin'),
+('LOG', 'Giao thông vận tải & Logistics', 'admin'),
+('ENE', 'Năng lượng', 'admin'),
+('TEL', 'Viễn thông', 'admin'),
+('MED', 'Truyền thông & Giải trí', 'admin'),
+('TOU', 'Du lịch & Khách sạn', 'admin'),
+('LAW', 'Luật & Dịch vụ pháp lý', 'admin'),
+('HR',  'Nhân sự & Tuyển dụng', 'admin'),
+('FOO', 'Thực phẩm & Đồ uống', 'admin'),
+('FAS', 'Thời trang & Mỹ phẩm', 'admin'),
+('PUB', 'Dịch vụ công (Chính phủ, Hành chính)', 'admin'),
+('AUT', 'Ô tô & Công nghiệp phụ trợ', 'admin'),
+('AVI', 'Hàng không & Vũ trụ', 'admin'),
+('MAR', 'Hàng hải & Đóng tàu', 'admin'),
+('ELE', 'Điện tử & Cơ điện tử', 'admin'),
+('MEC', 'Cơ khí & Chế tạo máy', 'admin'),
+('MIN', 'Khai khoáng & Khoáng sản', 'admin');
+
+CREATE TABLE IF NOT EXISTS organization_industry (
+    id BIGSERIAL PRIMARY KEY,
+
+    org_id INT NOT NULL,
+    industry_id INT NOT NULL,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100),
+
+    UNIQUE (org_id, industry_id),
+    FOREIGN KEY (org_id) REFERENCES organization (id) ON DELETE CASCADE,
+    FOREIGN KEY (industry_id) REFERENCES industry (id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS organization_address (
+    id BIGSERIAL PRIMARY KEY,
+
+    org_id BIGINT NOT NULL,
+    is_headquarter BOOLEAN DEFAULT FALSE,
+    province VARCHAR(150) NOT NULL,  -- Tỉnh/Thành phố
+    district VARCHAR(150), -- Quận/Huyện
+    ward VARCHAR(150), -- Xã/Phường
+    detail_address VARCHAR(255) NOT NULL,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100),
+
+    FOREIGN KEY (org_id) REFERENCES organization (id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS process_type (
+    id BIGSERIAL PRIMARY KEY,
+
+    code VARCHAR(50) UNIQUE NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    sort_order INT DEFAULT 0,
+    is_default BOOLEAN DEFAULT FALSE,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100)
+);
+
+insert into process_type (code, name, sort_order, is_default, created_by) values
+('APPLY', 'Ứng tuyển', 1, true, 'admin'),
+('SCAN_CV', 'Lọc hồ sơ', 2, true, 'admin'),
+('CONTEST', 'Thi tuyển', 3, true, 'admin'),
+('INTERVIEW', 'Phỏng vấn', 4, true, 'admin'),
+('OFFER', 'Đề nghị làm việc', 5, true, 'admin'),
+('ONBOARD', 'Onboard', 6, true, 'admin');
+
+CREATE TABLE IF NOT EXISTS level (
+    id BIGSERIAL PRIMARY KEY,
+
+    code VARCHAR(50) UNIQUE NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    is_default BOOLEAN DEFAULT FALSE,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100)
+);
+
+insert into level (code, name, is_default, created_by) values
+('INTERN', 'Thực tập sinh', true, 'admin'),
+('STAFF', 'Nhân viên', true, 'admin'),
+('LEADER', 'Trưởng nhóm', true, 'admin'),
+('DEPARTMENT_HEAD', 'Trưởng/Phó phòng', true, 'admin'),
+('MANAGER', 'Quản lý', true, 'admin'),
+('BRANCH_HEAD', 'Trưởng/Phó chi nhánh', true, 'admin'),
+('VICE_DIRECTOR', 'Phó Giám đốc', true, 'admin'),
+('DIRECTOR', 'Giám đốc', true, 'admin');
+
+CREATE TABLE IF NOT EXISTS department (
+    id BIGSERIAL PRIMARY KEY,
+
+    code VARCHAR(50) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    org_id BIGINT NOT NULL,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100),
+
+    FOREIGN KEY (org_id) REFERENCES organization (id) ON DELETE CASCADE,
+    CONSTRAINT uq_department_org_code UNIQUE (org_id, code)
+);
+
+CREATE TABLE IF NOT EXISTS position (
+    id BIGSERIAL PRIMARY KEY,
+
+    code VARCHAR(50) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    department_id BIGINT NOT NULL,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100),
+
+    FOREIGN KEY (department_id) REFERENCES department (id) ON DELETE CASCADE,
+    CONSTRAINT uq_position_department_code UNIQUE (department_id, code)
+);
+
+CREATE TABLE IF NOT EXISTS position_level (
+    id BIGSERIAL PRIMARY KEY,
+
+    name VARCHAR(255) NOT NULL,
+    position_id BIGINT NOT NULL,
+    level_id BIGINT NOT NULL,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100),
+
+    FOREIGN KEY (position_id) REFERENCES position (id) ON DELETE CASCADE,
+    FOREIGN KEY (level_id) REFERENCES level (id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS position_process (
+    id BIGSERIAL PRIMARY KEY,
+
+    name VARCHAR(255) NOT NULL,
+    position_id BIGINT NOT NULL,
+    process_type_id BIGINT NOT NULL,
+    sort_order INT NOT NULL ,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100),
+
+    FOREIGN KEY (position_id) REFERENCES position (id) ON DELETE CASCADE,
+    FOREIGN KEY (process_type_id) REFERENCES process_type (id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS careers (
+    id BIGSERIAL PRIMARY KEY,
+
+    code VARCHAR(50) UNIQUE NOT NULL,
+    name VARCHAR(255) NOT NULL,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100)
+);
+
+CREATE TABLE IF NOT EXISTS job_ad (
+    id BIGSERIAL PRIMARY KEY,
+
+    code VARCHAR(50) NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    org_id BIGINT NOT NULL,
+    position_id BIGINT NOT NULL,
+    position_level_id BIGINT NOT NULL,
+    work_location_id BIGINT NOT NULL,
+    job_type VARCHAR(100) NOT NULL ,
+    due_date TIMESTAMP WITHOUT TIME ZONE NOT NULL ,
+    quantity INT DEFAULT 1,
+    salary_type VARCHAR(100) NOT NULL ,
+    salary_from INT,
+    salary_to INT,
+    currency_type VARCHAR(50) NOT NULL ,
+    keyword VARCHAR(255),
+    description TEXT,
+    requirement TEXT,
+    benefit TEXT,
+    hr_contact_id BIGINT NOT NULL,
+    job_ad_status VARCHAR(100) NOT NULL,
+    is_public BOOLEAN DEFAULT TRUE,
+    is_auto_send_email BOOLEAN DEFAULT FALSE,
+    email_template_id BIGINT,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100),
+
+    FOREIGN KEY (org_id) REFERENCES organization (id) ON DELETE CASCADE,
+    FOREIGN KEY (position_id) REFERENCES position (id) ON DELETE CASCADE,
+    FOREIGN KEY (position_level_id) REFERENCES position_level (id) ON DELETE CASCADE,
+    FOREIGN KEY (work_location_id) REFERENCES organization_address (id) ON DELETE CASCADE
+);
+ALTER TABLE job_ad
+ADD CONSTRAINT job_ad_code_key UNIQUE (code, org_id);
+
+ALTER TABLE job_ad
+DROP COLUMN IF EXISTS work_location_id;
+
+CREATE TABLE IF NOT EXISTS job_ad_work_location (
+    id BIGSERIAL PRIMARY KEY,
+
+    job_ad_id BIGINT NOT NULL,
+    work_location_id BIGINT NOT NULL,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100),
+
+    FOREIGN KEY (job_ad_id) REFERENCES job_ad (id) ON DELETE CASCADE,
+    FOREIGN KEY (work_location_id) REFERENCES organization_address (id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS job_ad_career (
+    id BIGSERIAL PRIMARY KEY,
+
+    career_id BIGINT NOT NULL,
+    job_ad_id BIGINT NOT NULL,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100),
+
+    FOREIGN KEY (career_id) REFERENCES careers (id) ON DELETE CASCADE,
+    FOREIGN KEY (job_ad_id) REFERENCES job_ad (id) ON DELETE CASCADE,
+    UNIQUE (career_id, job_ad_id)
+);
+
+CREATE TABLE IF NOT EXISTS job_ad_process (
+    id BIGSERIAL PRIMARY KEY,
+
+    name VARCHAR(255) NOT NULL,
+    sort_order INT NOT NULL,
+    job_ad_id BIGINT NOT NULL,
+    process_type_id BIGINT NOT NULL,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100),
+
+    FOREIGN KEY (job_ad_id) REFERENCES job_ad (id) ON DELETE CASCADE,
+    FOREIGN KEY (process_type_id) REFERENCES process_type (id) ON DELETE CASCADE
+);
+
+INSERT INTO careers(code, name, created_by) VALUES
+-- Công nghệ thông tin tổng quát
+('IT_Software', 'Kỹ sư phần mềm', 'admin'),
+
+-- Lập trình theo mảng
+('FE', 'Frontend Developer', 'admin'),
+('BE', 'Backend Developer', 'admin'),
+('FS', 'Fullstack Developer', 'admin'),
+('Mobile', 'Mobile Developer', 'admin'),
+('GameDev', 'Game Developer', 'admin'),
+
+-- Chuyên sâu theo lĩnh vực
+('AI', 'Trí tuệ Nhân tạo (AI)', 'admin'),
+('ML', 'Machine Learning Engineer', 'admin'),
+('DL', 'Deep Learning Engineer', 'admin'),
+('DataEngineer', 'Data Engineer', 'admin'),
+('DataScientist', 'Data Scientist', 'admin'),
+('BigData', 'Big Data Engineer', 'admin'),
+('DataAnalyst', 'Data Analyst', 'admin'),
+
+-- Cloud / DevOps
+('DevOps', 'DevOps Engineer', 'admin'),
+('Cloud', 'Cloud Engineer', 'admin'),
+('SRE', 'Site Reliability Engineer', 'admin'),
+('SysAdmin', 'System Administrator', 'admin'),
+
+-- An ninh mạng
+('CyberSecurity', 'Chuyên gia An ninh mạng', 'admin'),
+('Pentester', 'Pentester / Kiểm thử xâm nhập', 'admin'),
+('SecOps', 'Security Operations', 'admin'),
+
+-- Testing / QA
+('QA', 'QA Engineer', 'admin'),
+('QA_Automation', 'Automation Tester', 'admin'),
+('QA_Manual', 'Manual Tester', 'admin'),
+
+-- Blockchain / Web3
+('Blockchain', 'Blockchain Developer', 'admin'),
+('Web3', 'Web3 Engineer', 'admin'),
+('CryptoResearch', 'Crypto Researcher', 'admin'),
+
+-- UI/UX - Product
+('UIUX', 'UI/UX Designer', 'admin'),
+('ProductManager', 'Product Manager', 'admin'),
+('BA', 'Business Analyst', 'admin'),
+
+-- IoT / Embedded
+('IoT', 'Kỹ sư IoT', 'admin'),
+('Embedded', 'Embedded System Engineer', 'admin'),
+
+-- Các lĩnh vực liên quan khác
+('RPA', 'RPA Developer', 'admin'),
+('ARVR', 'AR/VR Developer', 'admin'),
+('AutomotiveSW', 'Automotive Software Engineer', 'admin'),
+('DevRel', 'Developer Relations / Evangelist', 'admin');
+
+CREATE TABLE IF NOT EXISTS candidate_info_apply (
+    id BIGSERIAL PRIMARY KEY,
+
+    candidate_id BIGINT NOT NULL,
+    full_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(50),
+    cv_file_id BIGINT NOT NULL,
+    cover_letter TEXT,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100),
+
+    FOREIGN KEY (cv_file_id) REFERENCES attach_file (id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS job_ad_candidate (
+    id BIGSERIAL PRIMARY KEY,
+
+    job_ad_id BIGINT NOT NULL,
+    candidate_info_id BIGINT NOT NULL,
+    apply_date TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+
+    candidate_status VARCHAR(100) NOT NULL,
+    eliminate_reason_type TEXT,
+    eliminate_reason_detail TEXT,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100),
+
+    FOREIGN KEY (job_ad_id) REFERENCES job_ad (id) ON DELETE CASCADE,
+    FOREIGN KEY (candidate_info_id) REFERENCES candidate_info_apply (id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS job_ad_process_candidate (
+    id BIGSERIAL PRIMARY KEY,
+
+    job_ad_process_id BIGINT NOT NULL,
+    job_ad_candidate_id BIGINT NOT NULL,
+    action_date TIMESTAMP WITHOUT TIME ZONE,
+    is_current_process BOOLEAN DEFAULT FALSE,
+    note TEXT,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100),
+
+    FOREIGN KEY (job_ad_process_id) REFERENCES job_ad_process (id) ON DELETE CASCADE,
+    FOREIGN KEY (job_ad_candidate_id) REFERENCES job_ad_candidate (id) ON DELETE CASCADE
+);
+
+alter table job_ad_candidate
+add column if not exists onboard_date TIMESTAMP WITHOUT TIME ZONE;
+
+alter table job_ad
+add column if not exists is_remote BOOLEAN DEFAULT FALSE;
+
+alter table job_ad
+drop column position_level_id;
+
+drop table position_level;
+
+CREATE TABLE IF NOT EXISTS job_ad_level (
+    id BIGSERIAL PRIMARY KEY,
+
+    job_ad_id BIGINT NOT NULL,
+    level_id BIGINT NOT NULL,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100),
+
+    FOREIGN KEY (job_ad_id) REFERENCES job_ad (id) ON DELETE CASCADE,
+    FOREIGN KEY (level_id) REFERENCES level (id) ON DELETE CASCADE
+);
+
+alter table job_ad
+add column is_all_level BOOLEAN DEFAULT FALSE;
+
+CREATE TABLE IF NOT EXISTS candidate_summary_hr (
+    id BIGSERIAL PRIMARY KEY,
+
+    level VARCHAR(100),
+    skill TEXT,
+    org_id BIGINT NOT NULL,
+    candidate_info_id BIGINT NOT NULL ,
+    hr_contact_id BIGINT NOT NULL,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100),
+
+    FOREIGN KEY (org_id) REFERENCES organization (id) ON DELETE CASCADE,
+    FOREIGN KEY (candidate_info_id) REFERENCES candidate_info_apply (id) ON DELETE CASCADE
+);
+
+drop table candidate_summary_hr;
+
+CREATE TABLE IF NOT EXISTS candidate_summary_org (
+    id BIGSERIAL PRIMARY KEY,
+
+    skill TEXT,
+    level_id BIGINT NOT NULL ,
+    org_id BIGINT NOT NULL,
+    candidate_info_id BIGINT NOT NULL ,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100),
+
+    FOREIGN KEY (org_id) REFERENCES organization (id) ON DELETE CASCADE,
+    FOREIGN KEY (candidate_info_id) REFERENCES candidate_info_apply (id) ON DELETE CASCADE,
+    FOREIGN KEY (level_id) REFERENCES level (id) ON DELETE CASCADE
+);
+
+update level
+set code = 'FRESHER', name = 'Fresher'
+where code = 'STAFF';
+
+update level
+set code = 'JUNIOR', name = 'Junior'
+where code = 'LEADER';
+
+update level
+set code = 'JUNIOR_PLUS', name = 'Junior+'
+where code = 'DEPARTMENT_HEAD';
+
+update level
+set code = 'MIDDLE', name = 'Middle'
+where code = 'MANAGER';
+
+update level
+set code = 'MIDDLE_PLUS', name = 'Middle+'
+where code = 'BRANCH_HEAD';
+
+update level
+set code = 'SENIOR', name = 'Senior'
+where code = 'VICE_DIRECTOR';
+
+update level
+set code = 'LEADER', name = 'Leader'
+where code = 'DIRECTOR';
+
+alter table job_ad_candidate
+add column if not exists eliminate_date TIMESTAMP WITHOUT TIME ZONE;
+
+CREATE TABLE IF NOT EXISTS calendar (
+    id BIGSERIAL PRIMARY KEY,
+
+    job_ad_process_id BIGINT NOT NULL,
+    calendar_type VARCHAR(100) NOT NULL,
+    join_same_time BOOLEAN DEFAULT FALSE,
+
+    date DATE NOT NULL,
+    time_from TIME WITHOUT TIME ZONE NOT NULL,
+    duration_minutes INT NOT NULL,
+
+    -- danh cho offline
+    org_address_id BIGINT,
+    -- danh cho online
+    meeting_link VARCHAR(500),
+
+    note TEXT,
+    creator_id BIGINT NOT NULL,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100),
+
+    FOREIGN KEY (job_ad_process_id) REFERENCES job_ad_process (id) ON DELETE CASCADE,
+    FOREIGN KEY (org_address_id) REFERENCES organization_address (id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS calendar_candidate_info (
+    id BIGSERIAL PRIMARY KEY,
+
+    calendar_id BIGINT NOT NULL,
+    candidate_info_id BIGINT NOT NULL,
+    time_from TIME WITHOUT TIME ZONE NOT NULL ,
+    time_to TIME WITHOUT TIME ZONE NOT NULL ,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100),
+
+    FOREIGN KEY (calendar_id) REFERENCES calendar (id) ON DELETE CASCADE,
+    FOREIGN KEY (candidate_info_id) REFERENCES candidate_info_apply (id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS interview_panel (
+    id BIGSERIAL PRIMARY KEY,
+
+    calendar_id BIGINT NOT NULL,
+    interviewer_id BIGINT NOT NULL,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100),
+
+    FOREIGN KEY (calendar_id) REFERENCES calendar (id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS candidate_evaluation (
+    id BIGSERIAL PRIMARY KEY,
+
+    job_ad_process_candidate_id BIGINT NOT NULL,
+    evaluator_id BIGINT NOT NULL,
+    comments TEXT NOT NULL ,
+    score DECIMAL,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100),
+
+    FOREIGN KEY (job_ad_process_candidate_id) REFERENCES job_ad_process_candidate (id) ON DELETE CASCADE
+);
+
+alter table job_ad_process_candidate
+drop column note;
+
+alter table calendar_candidate_info
+add column date DATE NOT NULL;
+
+alter table calendar_candidate_info
+add unique (calendar_id, candidate_info_id);
+
+alter table interview_panel
+add unique (calendar_id, interviewer_id);
+
+alter table job_ad
+add column key_code_internal VARCHAR(100);
+
+CREATE EXTENSION IF NOT EXISTS pg_trgm;
+
+CREATE OR REPLACE FUNCTION FUNC_FILTER_JOB_AD_OUTSIDE(
+    p_keyword text DEFAULT NULL,
+    p_is_show_expired boolean DEFAULT false,
+    p_career_ids bigint[] DEFAULT NULL,
+    p_level_ids bigint[] DEFAULT NULL,
+    p_job_ad_location text DEFAULT NULL,
+    p_is_remote boolean DEFAULT NULL,
+    p_salary_from int DEFAULT NULL,
+    p_salary_to int DEFAULT NULL,
+    p_negotiable boolean DEFAULT NULL,
+    p_job_type text DEFAULT NULL,
+    p_search_org boolean DEFAULT NULL,
+    p_org_id bigint DEFAULT NULL,
+    p_limit int DEFAULT 10,
+    p_offset int DEFAULT 0,
+    p_sort_by text DEFAULT 'created_at',
+    p_sort_direction text DEFAULT 'desc'
+)
+    RETURNS TABLE(
+                     id bigint,
+                     code varchar,
+                     title varchar,
+                     orgId bigint,
+                     positionId bigint,
+                     jobType varchar,
+                     dueDate timestamp,
+                     quantity int,
+                     salaryType varchar,
+                     salaryFrom int,
+                     salaryTo int,
+                     currencyType varchar,
+                     keyword varchar,
+                     description text,
+                     requirement text,
+                     benefit text,
+                     hrContactId bigint,
+                     jobAdStatus varchar,
+                     isPublic boolean,
+                     isAutoSendEmail boolean,
+                     emailTemplateId bigint,
+                     isRemote boolean,
+                     isAllLevel boolean,
+                     keyCodeInternal varchar,
+                     isActive boolean,
+                     isDeleted boolean,
+                     createdBy varchar,
+                     createdAt timestamp,
+                     updatedBy varchar,
+                     updatedAt timestamp,
+                     viewCount bigint
+                 )
+    LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN QUERY EXECUTE format($f$
+        SELECT DISTINCT ja.id,
+                        ja.code,
+                        ja.title,
+                        ja.org_id,
+                        ja.position_id,
+                        ja.job_type,
+                        ja.due_date,
+                        ja.quantity,
+                        ja.salary_type,
+                        ja.salary_from,
+                        case when ja.salary_to is null then 0 else ja.salary_to end as salary_to,
+                        ja.currency_type,
+                        ja.keyword,
+                        ja.description,
+                        ja.requirement,
+                        ja.benefit,
+                        ja.hr_contact_id,
+                        ja.job_ad_status,
+                        ja.is_public,
+                        ja.is_auto_send_email,
+                        ja.email_template_id,
+                        ja.is_remote,
+                        ja.is_all_level,
+                        ja.key_code_internal,
+                        ja.is_active,
+                        ja.is_deleted,
+                        ja.created_by,
+                        ja.created_at,
+                        ja.updated_by,
+                        ja.updated_at,
+                        case when jas.view_count is null then 0 else jas.view_count end as view_count
+        FROM job_ad ja
+        LEFT JOIN job_ad_career jac ON jac.job_ad_id = ja.id
+        LEFT JOIN job_ad_level jal ON jal.job_ad_id = ja.id
+        LEFT JOIN job_ad_work_location jawl ON jawl.job_ad_id = ja.id
+        LEFT JOIN organization_address oa ON oa.id = jawl.work_location_id
+        LEFT JOIN job_ad_statistic jas ON jas.job_ad_id = ja.id
+        JOIN organization o ON o.id = ja.org_id AND o.is_active = true
+        WHERE ja.is_public = true
+          AND (%L = true OR ja.job_ad_status = 'OPEN')
+          AND (%L = true OR ja.due_date >= CURRENT_DATE)
+          AND (%L IS NULL OR jac.career_id = ANY(%L))
+          AND (%L IS NULL OR jal.level_id = ANY(%L))
+          AND (%L IS NULL OR (oa.province IS NOT NULL AND lower(oa.province) LIKE lower('%%' || %L || '%%')))
+          AND (%L IS NULL OR ja.is_remote = %L)
+          AND (%L IS NULL OR (ja.salary_from IS NOT NULL AND ja.salary_from <= %L))
+          AND (%L IS NULL OR (ja.salary_to IS NOT NULL AND %L <= ja.salary_to))
+          AND (%L IS NULL OR ja.salary_type = 'NEGOTIABLE')
+          AND (%L IS NULL OR ja.job_type = %L)
+          AND (%L IS NULL OR ja.org_id = %L)
+          AND (%L IS NULL
+               OR (%L = true AND lower(o.name) LIKE lower('%%' || %L || '%%'))
+               OR ts_rank(to_tsvector(ja.title || ' ' || replace(ja.keyword, ';', ' ')), plainto_tsquery(%L)) > 0.05
+               OR similarity(ja.title || ' ' || replace(ja.keyword, ';', ' '), %L) > 0.3)
+        ORDER BY %I %s, created_at DESC
+        LIMIT %s OFFSET %s
+        $f$,
+        p_is_show_expired,
+        p_is_show_expired,
+        p_career_ids, p_career_ids,
+        p_level_ids, p_level_ids,
+        p_job_ad_location, p_job_ad_location,
+        p_is_remote, p_is_remote,
+        p_salary_from, p_salary_from,
+        p_salary_to, p_salary_to,
+        p_negotiable,
+        p_job_type, p_job_type,
+        p_org_id, p_org_id,
+        p_keyword,
+        p_search_org, p_keyword,
+        p_keyword, p_keyword,
+        p_sort_by, p_sort_direction,
+        p_limit, p_offset
+    );
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION FUNC_WORKING_LOCATION_OUTSIDE(
+    p_keyword text DEFAULT NULL,
+    p_is_show_expired boolean DEFAULT false,
+    p_career_ids bigint[] DEFAULT NULL,
+    p_level_ids bigint[] DEFAULT NULL,
+    p_job_ad_location text DEFAULT NULL,
+    p_is_remote boolean DEFAULT NULL,
+    p_salary_from int DEFAULT NULL,
+    p_salary_to int DEFAULT NULL,
+    p_negotiable boolean DEFAULT NULL,
+    p_job_type text DEFAULT NULL,
+    p_search_org boolean DEFAULT NULL,
+    p_org_id bigint DEFAULT NULL
+)
+    RETURNS TABLE(
+                     id bigint,
+                     isRemote boolean,
+                     province varchar
+                 )
+    LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN QUERY EXECUTE format($f$
+        SELECT DISTINCT ja.id,
+                        ja.is_remote,
+                        oa.province
+        FROM job_ad ja
+        LEFT JOIN job_ad_career jac ON jac.job_ad_id = ja.id
+        LEFT JOIN job_ad_level jal ON jal.job_ad_id = ja.id
+        LEFT JOIN job_ad_work_location jawl ON jawl.job_ad_id = ja.id
+        LEFT JOIN organization_address oa ON oa.id = jawl.work_location_id
+        JOIN organization o ON o.id = ja.org_id AND o.is_active = true
+        WHERE ja.is_public = true
+          AND ja.job_ad_status = 'OPEN'
+          AND (%L = true OR ja.due_date >= CURRENT_DATE)
+          AND (%L IS NULL OR jac.career_id = ANY(%L))
+          AND (%L IS NULL OR jal.level_id = ANY(%L))
+          AND (%L IS NULL OR (oa.province IS NOT NULL AND lower(oa.province) LIKE lower('%%' || %L || '%%')))
+          AND (%L IS NULL OR ja.is_remote = %L)
+          AND (%L IS NULL OR (ja.salary_from IS NOT NULL AND ja.salary_from <= %L))
+          AND (%L IS NULL OR (ja.salary_to IS NOT NULL AND %L <= ja.salary_to))
+          AND (%L IS NULL OR ja.salary_type = 'NEGOTIABLE')
+          AND (%L IS NULL OR ja.job_type = %L)
+          AND (%L IS NULL OR ja.org_id = %L)
+          AND (%L IS NULL
+               OR (%L = true AND lower(o.name) LIKE lower('%%' || %L || '%%'))
+               OR ts_rank(to_tsvector(ja.title || ' ' || replace(ja.keyword, ';', ' ')), plainto_tsquery(%L)) > 0.05
+               OR similarity(ja.title || ' ' || replace(ja.keyword, ';', ' '), %L) > 0.3)
+        $f$,
+        p_is_show_expired,
+        p_career_ids, p_career_ids,
+        p_level_ids, p_level_ids,
+        p_job_ad_location, p_job_ad_location,
+        p_is_remote, p_is_remote,
+        p_salary_from, p_salary_from,
+        p_salary_to, p_salary_to,
+        p_negotiable,
+        p_job_type, p_job_type,
+        p_org_id, p_org_id,
+        p_keyword,
+        p_search_org, p_keyword,
+        p_keyword, p_keyword
+    );
+END;
+$$;
+
+CREATE TABLE IF NOT EXISTS search_history_outside (
+    id BIGSERIAL PRIMARY KEY,
+
+    keyword VARCHAR(255),
+    user_id BIGINT,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100)
+
+);
+
+CREATE TABLE IF NOT EXISTS job_ad_statistic (
+    id BIGSERIAL PRIMARY KEY,
+
+    job_ad_id BIGINT NOT NULL,
+    view_count BIGINT DEFAULT 0,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100),
+
+    FOREIGN KEY (job_ad_id) REFERENCES job_ad (id) ON DELETE CASCADE
+
+);
+
+create table if not exists failed_rollback (
+    id BIGSERIAL PRIMARY KEY,
+    type VARCHAR(100) NOT NULL,
+    payload TEXT NOT NULL,
+    error_message TEXT,
+    status BOOLEAN DEFAULT FALSE,
+    retry_count INT DEFAULT 0,
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100)
+);
+
+CREATE TABLE IF NOT EXISTS job_config (
+    id BIGSERIAL PRIMARY KEY,
+
+    job_name VARCHAR(100) NOT NULL UNIQUE,
+    schedule_type VARCHAR(50) NOT NULL,
+    expression VARCHAR(100) NOT NULL,
+    description VARCHAR(500),
+
+    is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    created_by VARCHAR(100),
+    updated_by VARCHAR(100)
+);
+
+CREATE TABLE IF NOT EXISTS shedlock (
+    name VARCHAR(64) NOT NULL,
+    lock_until TIME WITHOUT TIME ZONE NOT NULL,
+    locked_at TIME WITHOUT TIME ZONE NOT NULL,
+    locked_by VARCHAR(255) NOT NULL,
+    PRIMARY KEY (name)
+);
+
+insert into job_config
+(job_name, schedule_type, expression, description, created_by) values
+('failed_rollback_retry', 'FIXED_RATE', '600', 'Chạy lại Rollback data', 'admin');
+
+alter table organization
+add FOREIGN KEY (logo_id) REFERENCES attach_file (id);
+
+alter table organization
+add FOREIGN KEY (cover_photo_id) REFERENCES attach_file (id);
+ALTER TABLE job_ad_work_location
+ADD CONSTRAINT uq_job_ad_work_location_job_ad_id_work_location_id UNIQUE (job_ad_id, work_location_id);
+ALTER TABLE job_ad_level
+ADD CONSTRAINT uq_job_ad_level_job_ad_id_level_id UNIQUE (job_ad_id, level_id);
+ALTER TABLE candidate_summary_org
+ADD CONSTRAINT uq_candidate_summary_org_org_id_candidate_info_id UNIQUE (org_id, candidate_info_id);
+alter table search_history_outside
+alter column keyword set not null;
+alter table search_history_outside
+alter column user_id set not null;

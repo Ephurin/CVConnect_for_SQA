@@ -1,0 +1,1220 @@
+[
+  {
+    "service": "user",
+    "method": "GET",
+    "path": "/auth/request-resend-verify-email",
+    "file": "AuthController.java"
+  },
+  {
+    "service": "user",
+    "method": "GET",
+    "path": "/auth/request-reset-password",
+    "file": "AuthController.java"
+  },
+  {
+    "service": "user",
+    "method": "POST",
+    "path": "/auth/login",
+    "file": "AuthController.java"
+  },
+  {
+    "service": "user",
+    "method": "POST",
+    "path": "/auth/refresh",
+    "file": "AuthController.java"
+  },
+  {
+    "service": "user",
+    "method": "POST",
+    "path": "/auth/logout",
+    "file": "AuthController.java"
+  },
+  {
+    "service": "user",
+    "method": "POST",
+    "path": "/auth/register-candidate",
+    "file": "AuthController.java"
+  },
+  {
+    "service": "user",
+    "method": "POST",
+    "path": "/auth/register-org-admin",
+    "file": "AuthController.java"
+  },
+  {
+    "service": "user",
+    "method": "POST",
+    "path": "/auth/verify",
+    "file": "AuthController.java"
+  },
+  {
+    "service": "user",
+    "method": "POST",
+    "path": "/auth/verify-token",
+    "file": "AuthController.java"
+  },
+  {
+    "service": "user",
+    "method": "PUT",
+    "path": "/auth/verify-email/{token}",
+    "file": "AuthController.java"
+  },
+  {
+    "service": "user",
+    "method": "PUT",
+    "path": "/auth/reset-password",
+    "file": "AuthController.java"
+  },
+  {
+    "service": "user",
+    "method": "POST",
+    "path": "/candidate/internal/number-of-new-candidate",
+    "file": "CandidateController.java"
+  },
+  {
+    "service": "user",
+    "method": "GET",
+    "path": "/menu/menu-by-role/{roleId}",
+    "file": "MenuController.java"
+  },
+  {
+    "service": "user",
+    "method": "GET",
+    "path": "/menu/all-menus",
+    "file": "MenuController.java"
+  },
+  {
+    "service": "user",
+    "method": "GET",
+    "path": "/org-member/filter",
+    "file": "OrgMemberController.java"
+  },
+  {
+    "service": "user",
+    "method": "GET",
+    "path": "/org-member/internal/valid-org-member",
+    "file": "OrgMemberController.java"
+  },
+  {
+    "service": "user",
+    "method": "GET",
+    "path": "/org-member/org-member-info/{userId}",
+    "file": "OrgMemberController.java"
+  },
+  {
+    "service": "user",
+    "method": "GET",
+    "path": "/org-member/org-member-by-org",
+    "file": "OrgMemberController.java"
+  },
+  {
+    "service": "user",
+    "method": "POST",
+    "path": "/org-member/invite-join-org",
+    "file": "OrgMemberController.java"
+  },
+  {
+    "service": "user",
+    "method": "POST",
+    "path": "/org-member/reply-invite-join-org",
+    "file": "OrgMemberController.java"
+  },
+  {
+    "service": "user",
+    "method": "POST",
+    "path": "/org-member/internal/check-org-member",
+    "file": "OrgMemberController.java"
+  },
+  {
+    "service": "user",
+    "method": "POST",
+    "path": "/org-member/internal/update-account-status-by-org-ids",
+    "file": "OrgMemberController.java"
+  },
+  {
+    "service": "user",
+    "method": "POST",
+    "path": "/org-member/internal/rollback-update-account-status-by-org-ids",
+    "file": "OrgMemberController.java"
+  },
+  {
+    "service": "user",
+    "method": "PUT",
+    "path": "/org-member/assign-role",
+    "file": "OrgMemberController.java"
+  },
+  {
+    "service": "user",
+    "method": "PUT",
+    "path": "/org-memberchange-status-active",
+    "file": "OrgMemberController.java"
+  },
+  {
+    "service": "user",
+    "method": "GET",
+    "path": "/role/member-type",
+    "file": "RoleController.java"
+  },
+  {
+    "service": "user",
+    "method": "GET",
+    "path": "/role/filter",
+    "file": "RoleController.java"
+  },
+  {
+    "service": "user",
+    "method": "GET",
+    "path": "/role/get-member-type-organization",
+    "file": "RoleController.java"
+  },
+  {
+    "service": "user",
+    "method": "GET",
+    "path": "/role/detail/{id}",
+    "file": "RoleController.java"
+  },
+  {
+    "service": "user",
+    "method": "POST",
+    "path": "/role/create",
+    "file": "RoleController.java"
+  },
+  {
+    "service": "user",
+    "method": "PUT",
+    "path": "/role/update/{id}",
+    "file": "RoleController.java"
+  },
+  {
+    "service": "user",
+    "method": "DELETE",
+    "path": "/role/delete",
+    "file": "RoleController.java"
+  },
+  {
+    "service": "user",
+    "method": "GET",
+    "path": "/role-menu/permission-type",
+    "file": "RoleMenuController.java"
+  },
+  {
+    "service": "user",
+    "method": "GET",
+    "path": "/user/my-info/{roleId}",
+    "file": "UserController.java"
+  },
+  {
+    "service": "user",
+    "method": "GET",
+    "path": "/user/internal/check-org-user-role/{userId}/{roleCode}/{orgId}",
+    "file": "UserController.java"
+  },
+  {
+    "service": "user",
+    "method": "GET",
+    "path": "/user/get-by-role-code-org/{roleCode}",
+    "file": "UserController.java"
+  },
+  {
+    "service": "user",
+    "method": "GET",
+    "path": "/user/internal/get-by-id/{userId}",
+    "file": "UserController.java"
+  },
+  {
+    "service": "user",
+    "method": "GET",
+    "path": "/user/internal/get-by-role-code-org-id/{roleCode}/{orgId}",
+    "file": "UserController.java"
+  },
+  {
+    "service": "user",
+    "method": "GET",
+    "path": "/user/my-roles",
+    "file": "UserController.java"
+  },
+  {
+    "service": "user",
+    "method": "GET",
+    "path": "/user/find-not-org-member",
+    "file": "UserController.java"
+  },
+  {
+    "service": "user",
+    "method": "GET",
+    "path": "/user/filter",
+    "file": "UserController.java"
+  },
+  {
+    "service": "user",
+    "method": "GET",
+    "path": "/user/user-detail-for-system-admin/{userId}",
+    "file": "UserController.java"
+  },
+  {
+    "service": "user",
+    "method": "GET",
+    "path": "/user/filter/export",
+    "file": "UserController.java"
+  },
+  {
+    "service": "user",
+    "method": "GET",
+    "path": "/user/my-profiles",
+    "file": "UserController.java"
+  },
+  {
+    "service": "user",
+    "method": "POST",
+    "path": "/user/internal/get-by-ids",
+    "file": "UserController.java"
+  },
+  {
+    "service": "user",
+    "method": "PUT",
+    "path": "/user/role-default/{roleId}",
+    "file": "UserController.java"
+  },
+  {
+    "service": "user",
+    "method": "PUT",
+    "path": "/user/update-password",
+    "file": "UserController.java"
+  },
+  {
+    "service": "user",
+    "method": "PUT",
+    "path": "/user/update-avatar",
+    "file": "UserController.java"
+  },
+  {
+    "service": "user",
+    "method": "PUT",
+    "path": "/user/update-info",
+    "file": "UserController.java"
+  },
+  {
+    "service": "user",
+    "method": "PUT",
+    "path": "/user/assign-role-system-admin/{userId}",
+    "file": "UserController.java"
+  },
+  {
+    "service": "user",
+    "method": "PUT",
+    "path": "/user/retrieve-role-system-admin/{userId}",
+    "file": "UserController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/attach-file/internal/get-by-id/{id}",
+    "file": "AttachFileController.java"
+  },
+  {
+    "service": "core",
+    "method": "POST",
+    "path": "/attach-file/upload",
+    "file": "AttachFileController.java"
+  },
+  {
+    "service": "core",
+    "method": "POST",
+    "path": "/attach-file/internal/upload",
+    "file": "AttachFileController.java"
+  },
+  {
+    "service": "core",
+    "method": "POST",
+    "path": "/attach-file/internal/uploads",
+    "file": "AttachFileController.java"
+  },
+  {
+    "service": "core",
+    "method": "POST",
+    "path": "/attach-file/internal/delete-by-ids",
+    "file": "AttachFileController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/calendar/filter-view-candidate",
+    "file": "CalendarController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/calendar/detail-in-view-candidate/{calendarCandidateInfoId}",
+    "file": "CalendarController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/calendar/filter-view-general",
+    "file": "CalendarController.java"
+  },
+  {
+    "service": "core",
+    "method": "POST",
+    "path": "/calendar/create",
+    "file": "CalendarController.java"
+  },
+  {
+    "service": "core",
+    "method": "POST",
+    "path": "/calendar/detail-in-view-general",
+    "file": "CalendarController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/candidate-evaluation/get-by-job-ad-candidate/{jobAdCandidateId}",
+    "file": "CandidateEvaluationController.java"
+  },
+  {
+    "service": "core",
+    "method": "POST",
+    "path": "/candidate-evaluation/create",
+    "file": "CandidateEvaluationController.java"
+  },
+  {
+    "service": "core",
+    "method": "POST",
+    "path": "/candidate-evaluation/update/{evaluationId}",
+    "file": "CandidateEvaluationController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/candidate-info-apply/filter",
+    "file": "CandidateInfoApplyController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/candidate-info-apply/get-candidate-in-current-process/{jobAdProcessId}",
+    "file": "CandidateInfoApplyController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/candidate-info-apply/filter-by-job-ad-process/{jobAdProcessId}",
+    "file": "CandidateInfoApplyController.java"
+  },
+  {
+    "service": "core",
+    "method": "POST",
+    "path": "/candidate-summary-org/save-summary",
+    "file": "CandidateSummaryOrgController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/career/filter",
+    "file": "CareerController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/career/detail/{careerId}",
+    "file": "CareerController.java"
+  },
+  {
+    "service": "core",
+    "method": "POST",
+    "path": "/career/create",
+    "file": "CareerController.java"
+  },
+  {
+    "service": "core",
+    "method": "PUT",
+    "path": "/career/update/{careerId}",
+    "file": "CareerController.java"
+  },
+  {
+    "service": "core",
+    "method": "DELETE",
+    "path": "/career/delete-by-ids",
+    "file": "CareerController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/dashboard/system-admin/overview",
+    "file": "DashboardController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/dashboard/system-admin/percent-passed",
+    "file": "DashboardController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/dashboard/system-admin/candidate-apply-most",
+    "file": "DashboardController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/dashboard/system-admin/eliminated-reason",
+    "file": "DashboardController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/dashboard/system-admin/job-ad-by-time",
+    "file": "DashboardController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/dashboard/system-admin/job-ad-by-career",
+    "file": "DashboardController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/dashboard/system-admin/job-ad-by-level",
+    "file": "DashboardController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/dashboard/system-admin/job-ad-featured",
+    "file": "DashboardController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/dashboard/system-admin/new-org-by-time",
+    "file": "DashboardController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/dashboard/system-admin/staff-size",
+    "file": "DashboardController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/dashboard/system-admin/organization-featured",
+    "file": "DashboardController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/dashboard/org-admin/overview",
+    "file": "DashboardController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/dashboard/org-admin/percent-passed",
+    "file": "DashboardController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/dashboard/org-admin/job-ad-by-hr",
+    "file": "DashboardController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/dashboard/org-admin/job-ad-by-department",
+    "file": "DashboardController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/dashboard/org-admin/pass-by-level",
+    "file": "DashboardController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/dashboard/org-admin/eliminated-reason",
+    "file": "DashboardController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/dashboard/org-admin/job-ad-featured",
+    "file": "DashboardController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/department/detail/{id}",
+    "file": "DepartmentController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/department/filter",
+    "file": "DepartmentController.java"
+  },
+  {
+    "service": "core",
+    "method": "POST",
+    "path": "/department/create",
+    "file": "DepartmentController.java"
+  },
+  {
+    "service": "core",
+    "method": "PUT",
+    "path": "/department/change-status-active",
+    "file": "DepartmentController.java"
+  },
+  {
+    "service": "core",
+    "method": "PUT",
+    "path": "/department/update/{id}",
+    "file": "DepartmentController.java"
+  },
+  {
+    "service": "core",
+    "method": "DELETE",
+    "path": "/department/delete",
+    "file": "DepartmentController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/type/currency",
+    "file": "EnumController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/type/job-ad-status",
+    "file": "EnumController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/type/Job",
+    "file": "EnumController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/type/salary",
+    "file": "EnumController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/type/eliminate-reason",
+    "file": "EnumController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/type/calendar-type",
+    "file": "EnumController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/industry/filter",
+    "file": "IndustryController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/industry/public/filter",
+    "file": "IndustryController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/industry/detail/{id}",
+    "file": "IndustryController.java"
+  },
+  {
+    "service": "core",
+    "method": "POST",
+    "path": "/industry/create",
+    "file": "IndustryController.java"
+  },
+  {
+    "service": "core",
+    "method": "PUT",
+    "path": "/industry/update/{id}",
+    "file": "IndustryController.java"
+  },
+  {
+    "service": "core",
+    "method": "DELETE",
+    "path": "/industry/delete",
+    "file": "IndustryController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/job-ad-candidate/filter",
+    "file": "JobAdCandidateController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/job-ad-candidate/candidate-detail/{candidateInfoId}",
+    "file": "JobAdCandidateController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/job-ad-candidate/job-ad-applied",
+    "file": "JobAdCandidateController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/job-ad-candidate/conversation/view-candidate",
+    "file": "JobAdCandidateController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/job-ad-candidate/conversation/view-organization",
+    "file": "JobAdCandidateController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/job-ad-candidate/list-onboard",
+    "file": "JobAdCandidateController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/job-ad-candidate/internal/get-job-ad-candidate-data/{jobAdId}/{candidateId}",
+    "file": "JobAdCandidateController.java"
+  },
+  {
+    "service": "core",
+    "method": "POST",
+    "path": "/job-ad-candidate/apply",
+    "file": "JobAdCandidateController.java"
+  },
+  {
+    "service": "core",
+    "method": "POST",
+    "path": "/job-ad-candidate/send-email",
+    "file": "JobAdCandidateController.java"
+  },
+  {
+    "service": "core",
+    "method": "POST",
+    "path": "/job-ad-candidate/internal/validate-create-conversation",
+    "file": "JobAdCandidateController.java"
+  },
+  {
+    "service": "core",
+    "method": "PUT",
+    "path": "/job-ad-candidate/change-process",
+    "file": "JobAdCandidateController.java"
+  },
+  {
+    "service": "core",
+    "method": "PUT",
+    "path": "/job-ad-candidate/eliminate-candidate",
+    "file": "JobAdCandidateController.java"
+  },
+  {
+    "service": "core",
+    "method": "PUT",
+    "path": "/job-ad-candidate/change-onboard-date",
+    "file": "JobAdCandidateController.java"
+  },
+  {
+    "service": "core",
+    "method": "PUT",
+    "path": "/job-ad-candidate/mark-onboard",
+    "file": "JobAdCandidateController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/job-ad/process/{jobAdId}",
+    "file": "JobAdController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/job-ad/org/filter",
+    "file": "JobAdController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/job-ad/org/detail/{jobAdId}",
+    "file": "JobAdController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/job-ad/by-participant",
+    "file": "JobAdController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/job-ad/outside/data-filter",
+    "file": "JobAdController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/job-ad/outside/filter",
+    "file": "JobAdController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/job-ad/outside/detail/{jobAdId}",
+    "file": "JobAdController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/job-ad/outside/relate/{jobAdId}",
+    "file": "JobAdController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/job-ad/outside/filter-featured",
+    "file": "JobAdController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/job-ad/outside/filter-suitable",
+    "file": "JobAdController.java"
+  },
+  {
+    "service": "core",
+    "method": "POST",
+    "path": "/job-ad/create",
+    "file": "JobAdController.java"
+  },
+  {
+    "service": "core",
+    "method": "PUT",
+    "path": "/job-ad/update-status/{jobAdId}",
+    "file": "JobAdController.java"
+  },
+  {
+    "service": "core",
+    "method": "PUT",
+    "path": "/job-ad/update-public/{jobAdId}",
+    "file": "JobAdController.java"
+  },
+  {
+    "service": "core",
+    "method": "PUT",
+    "path": "/job-ad/update/{jobAdId}",
+    "file": "JobAdController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/level/detail/{id}",
+    "file": "LevelController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/level/filter",
+    "file": "LevelController.java"
+  },
+  {
+    "service": "core",
+    "method": "POST",
+    "path": "/level/create",
+    "file": "LevelController.java"
+  },
+  {
+    "service": "core",
+    "method": "PUT",
+    "path": "/level/update/{id}",
+    "file": "LevelController.java"
+  },
+  {
+    "service": "core",
+    "method": "DELETE",
+    "path": "/level/delete",
+    "file": "LevelController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/org-address/get-all",
+    "file": "OrgAddressController.java"
+  },
+  {
+    "service": "core",
+    "method": "POST",
+    "path": "/org-address/save",
+    "file": "OrgAddressController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/org/internal/get-by-id/{orgId}",
+    "file": "OrgController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/org/org-info",
+    "file": "OrgController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/org/outside/org-info/{orgId}",
+    "file": "OrgController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/org/outside/org-featured",
+    "file": "OrgController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/org/outside/org-by-job-ad/{jobAdId}",
+    "file": "OrgController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/org/filter",
+    "file": "OrgController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/org/filter/export",
+    "file": "OrgController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/org/org-details/{orgId}",
+    "file": "OrgController.java"
+  },
+  {
+    "service": "core",
+    "method": "POST",
+    "path": "/org/internal/create",
+    "file": "OrgController.java"
+  },
+  {
+    "service": "core",
+    "method": "POST",
+    "path": "/org/internal/delete",
+    "file": "OrgController.java"
+  },
+  {
+    "service": "core",
+    "method": "PUT",
+    "path": "/org/update-info",
+    "file": "OrgController.java"
+  },
+  {
+    "service": "core",
+    "method": "PUT",
+    "path": "/org/update-logo",
+    "file": "OrgController.java"
+  },
+  {
+    "service": "core",
+    "method": "PUT",
+    "path": "/org/update-cover-photo",
+    "file": "OrgController.java"
+  },
+  {
+    "service": "core",
+    "method": "PUT",
+    "path": "/org/change-status-active",
+    "file": "OrgController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/position/detail/{id}",
+    "file": "PositionController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/position/filter",
+    "file": "PositionController.java"
+  },
+  {
+    "service": "core",
+    "method": "POST",
+    "path": "/position/create",
+    "file": "PositionController.java"
+  },
+  {
+    "service": "core",
+    "method": "PUT",
+    "path": "/position/change-status-active",
+    "file": "PositionController.java"
+  },
+  {
+    "service": "core",
+    "method": "PUT",
+    "path": "/position/update/{id}",
+    "file": "PositionController.java"
+  },
+  {
+    "service": "core",
+    "method": "DELETE",
+    "path": "/position/delete",
+    "file": "PositionController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/process-type/detail/{id}",
+    "file": "ProcessTypeController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/process-type/get-all",
+    "file": "ProcessTypeController.java"
+  },
+  {
+    "service": "core",
+    "method": "POST",
+    "path": "/process-type/update",
+    "file": "ProcessTypeController.java"
+  },
+  {
+    "service": "core",
+    "method": "POST",
+    "path": "/replace-placeholder/internal/preview-email",
+    "file": "ReplacePlaceholderController.java"
+  },
+  {
+    "service": "core",
+    "method": "GET",
+    "path": "/search-history-outside/my-search-history",
+    "file": "SearchHistoryOutsideController.java"
+  },
+  {
+    "service": "core",
+    "method": "DELETE",
+    "path": "/search-history-outside/delete",
+    "file": "SearchHistoryOutsideController.java"
+  },
+  {
+    "service": "core",
+    "method": "DELETE",
+    "path": "/search-history-outside/delete-all",
+    "file": "SearchHistoryOutsideController.java"
+  },
+  {
+    "service": "notify",
+    "method": "GET",
+    "path": "/conversation/check-exists/{jobAdId}/{candidateId}",
+    "file": "ConversationController.java"
+  },
+  {
+    "service": "notify",
+    "method": "GET",
+    "path": "/conversation/check-exists-message-unread",
+    "file": "ConversationController.java"
+  },
+  {
+    "service": "notify",
+    "method": "GET",
+    "path": "/conversation/internal/conversation-unread",
+    "file": "ConversationController.java"
+  },
+  {
+    "service": "notify",
+    "method": "GET",
+    "path": "/conversation/internal/my-conversations",
+    "file": "ConversationController.java"
+  },
+  {
+    "service": "notify",
+    "method": "GET",
+    "path": "/conversation/chat-messages",
+    "file": "ConversationController.java"
+  },
+  {
+    "service": "notify",
+    "method": "POST",
+    "path": "/conversation/create",
+    "file": "ConversationController.java"
+  },
+  {
+    "service": "notify",
+    "method": "POST",
+    "path": "/conversation/internal/my-conversations-filtered",
+    "file": "ConversationController.java"
+  },
+  {
+    "service": "notify",
+    "method": "POST",
+    "path": "/conversation/read-all-messages",
+    "file": "ConversationController.java"
+  },
+  {
+    "service": "notify",
+    "method": "POST",
+    "path": "/conversation/new-message",
+    "file": "ConversationController.java"
+  },
+  {
+    "service": "notify",
+    "method": "GET",
+    "path": "/email-config/get-by-org",
+    "file": "EmailConfigController.java"
+  },
+  {
+    "service": "notify",
+    "method": "GET",
+    "path": "/email-config/internal/get-by-org",
+    "file": "EmailConfigController.java"
+  },
+  {
+    "service": "notify",
+    "method": "POST",
+    "path": "/email-config/create",
+    "file": "EmailConfigController.java"
+  },
+  {
+    "service": "notify",
+    "method": "PUT",
+    "path": "/email-config/update",
+    "file": "EmailConfigController.java"
+  },
+  {
+    "service": "notify",
+    "method": "DELETE",
+    "path": "/email-config/delete",
+    "file": "EmailConfigController.java"
+  },
+  {
+    "service": "notify",
+    "method": "POST",
+    "path": "/email/resend/{emailLogId}",
+    "file": "EmailController.java"
+  },
+  {
+    "service": "notify",
+    "method": "GET",
+    "path": "/email-log/log-by-candidate-info/{candidateInfoId}/{jobAdId}",
+    "file": "EmailLogController.java"
+  },
+  {
+    "service": "notify",
+    "method": "GET",
+    "path": "/email-template/filter",
+    "file": "EmailTemplateController.java"
+  },
+  {
+    "service": "notify",
+    "method": "GET",
+    "path": "/email-template/detail/{id}",
+    "file": "EmailTemplateController.java"
+  },
+  {
+    "service": "notify",
+    "method": "GET",
+    "path": "/email-template/internal/get-by-org-id/{orgId}",
+    "file": "EmailTemplateController.java"
+  },
+  {
+    "service": "notify",
+    "method": "GET",
+    "path": "/email-template/internal/get-by-id/{id}",
+    "file": "EmailTemplateController.java"
+  },
+  {
+    "service": "notify",
+    "method": "POST",
+    "path": "/email-template/create",
+    "file": "EmailTemplateController.java"
+  },
+  {
+    "service": "notify",
+    "method": "POST",
+    "path": "/email-template/preview-email/{id}",
+    "file": "EmailTemplateController.java"
+  },
+  {
+    "service": "notify",
+    "method": "POST",
+    "path": "/email-template/preview-email-without-template",
+    "file": "EmailTemplateController.java"
+  },
+  {
+    "service": "notify",
+    "method": "POST",
+    "path": "/email-template/preview-email-default",
+    "file": "EmailTemplateController.java"
+  },
+  {
+    "service": "notify",
+    "method": "PUT",
+    "path": "/email-template/update/{id}",
+    "file": "EmailTemplateController.java"
+  },
+  {
+    "service": "notify",
+    "method": "PUT",
+    "path": "/email-templatechange-status-active",
+    "file": "EmailTemplateController.java"
+  },
+  {
+    "service": "notify",
+    "method": "DELETE",
+    "path": "/email-template/delete",
+    "file": "EmailTemplateController.java"
+  },
+  {
+    "service": "notify",
+    "method": "GET",
+    "path": "/notification/my-notifications",
+    "file": "NotificationController.java"
+  },
+  {
+    "service": "notify",
+    "method": "GET",
+    "path": "/notification/quantity-unread",
+    "file": "NotificationController.java"
+  },
+  {
+    "service": "notify",
+    "method": "PUT",
+    "path": "/notification/mark-all-as-read",
+    "file": "NotificationController.java"
+  },
+  {
+    "service": "notify",
+    "method": "PUT",
+    "path": "/notification/mark-as-read/{notificationId}",
+    "file": "NotificationController.java"
+  },
+  {
+    "service": "notify",
+    "method": "GET",
+    "path": "/placeholder/filter",
+    "file": "PlaceholderController.java"
+  }
+]

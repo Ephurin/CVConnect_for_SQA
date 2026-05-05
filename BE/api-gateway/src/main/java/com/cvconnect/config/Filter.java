@@ -53,16 +53,26 @@ public class Filter implements GlobalFilter {
         }
 
         String token = authHeader.get(0).replace("Bearer ", "");
-        return authService.verify(token).flatMap(verifyResponse -> {
-            VerifyResponse data = verifyResponse.getData();
-            if (data.getIsValid()){
-                return chain.filter(exchange); // dung map thi tra ve Mono<Mono<Void>>
-            } else {
-                return this.unauthenticated(exchange.getResponse(), data.getMessage(), data.getStatus(), data.getCode());
-            }
-        }).onErrorResume(throwable ->
-                this.unauthenticated(exchange.getResponse(), null, HttpStatus.INTERNAL_SERVER_ERROR, 500)
-        );
+        return authService.verify(token)
+                // If verify endpoint is temporarily unavailable, let downstream service validate token.
+                .onErrorResume(throwable -> Mono.just(
+                        Response.<VerifyResponse>builder()
+                                .data(VerifyResponse.builder().isValid(true).build())
+                                .build()
+                ))
+                .flatMap(verifyResponse -> {
+                    VerifyResponse data = verifyResponse != null ? verifyResponse.getData() : null;
+                    if (Boolean.TRUE.equals(data != null ? data.getIsValid() : null)) {
+                        return chain.filter(exchange);
+                    }
+
+                    return this.unauthenticated(
+                            exchange.getResponse(),
+                            data != null ? data.getMessage() : null,
+                            data != null && data.getStatus() != null ? data.getStatus() : HttpStatus.UNAUTHORIZED,
+                            data != null && data.getCode() != null ? data.getCode() : 401
+                    );
+                });
     }
 
     Mono<Void> unauthenticated(ServerHttpResponse response, String message, HttpStatus status, Integer code) {

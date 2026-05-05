@@ -24,3 +24,18 @@ settings.xml
 .env
 logs
 cvconnect.env
+
+# Dependencies
+node_modules/
+.npm/
+
+# Build outputs
+dist/
+.nuxt/
+.output/
+target/
+*.jar
+
+# System files
+.DS_Store
+Thumbs.db

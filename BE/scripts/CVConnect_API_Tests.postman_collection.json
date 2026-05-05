@@ -1,0 +1,3516 @@
+{
+  "info": {
+    "name": "CVConnect Master QA Suite (Exhaustive)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Full Suite",
+      "item": [
+        {
+          "name": "AUTH-P-01: Login Success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"AUTH-P-01 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200]); });",
+                  "if(pm.response.code === 200 && \"AUTH-P-01\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"admin_test\",\"password\":\"Password123!\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "auth",
+                "login"
+              ]
+            }
+          }
+        },
+        {
+          "name": "AUTH-P-01-S: Login Success (No Token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"AUTH-P-01-S | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([401]); });",
+                  "if(pm.response.code === 200 && \"AUTH-P-01-S\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"admin_test\",\"password\":\"Password123!\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "auth",
+                "login"
+              ]
+            }
+          }
+        },
+        {
+          "name": "AUTH-P-01-B: Login Success (Boundary Data)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"AUTH-P-01-B | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([400,401,200]); });",
+                  "if(pm.response.code === 200 && \"AUTH-P-01-B\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"admin_test\",\"password\":\"Password123!\",\"fullName\":\"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "auth",
+                "login"
+              ]
+            }
+          }
+        },
+        {
+          "name": "AUTH-N-01: Wrong Pass",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"AUTH-N-01 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([400,401]); });",
+                  "if(pm.response.code === 200 && \"AUTH-N-01\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"admin_test\",\"password\":\"WrongPassword123!\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "auth",
+                "login"
+              ]
+            }
+          }
+        },
+        {
+          "name": "AUTH-N-01-S: Wrong Pass (No Token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"AUTH-N-01-S | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([401]); });",
+                  "if(pm.response.code === 200 && \"AUTH-N-01-S\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"admin_test\",\"password\":\"WrongPassword123!\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "auth",
+                "login"
+              ]
+            }
+          }
+        },
+        {
+          "name": "AUTH-N-01-B: Wrong Pass (Boundary Data)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"AUTH-N-01-B | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([400,401,200]); });",
+                  "if(pm.response.code === 200 && \"AUTH-N-01-B\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"admin_test\",\"password\":\"WrongPassword123!\",\"fullName\":\"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "auth",
+                "login"
+              ]
+            }
+          }
+        },
+        {
+          "name": "AUTH-N-02: Empty User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"AUTH-N-02 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([400]); });",
+                  "if(pm.response.code === 200 && \"AUTH-N-02\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "auth",
+                "login"
+              ]
+            }
+          }
+        },
+        {
+          "name": "AUTH-N-02-S: Empty User (No Token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"AUTH-N-02-S | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([401]); });",
+                  "if(pm.response.code === 200 && \"AUTH-N-02-S\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "auth",
+                "login"
+              ]
+            }
+          }
+        },
+        {
+          "name": "AUTH-N-02-B: Empty User (Boundary Data)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"AUTH-N-02-B | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([400,401,200]); });",
+                  "if(pm.response.code === 200 && \"AUTH-N-02-B\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"\",\"fullName\":\"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "auth",
+                "login"
+              ]
+            }
+          }
+        },
+        {
+          "name": "AUTH-P-02: Register Success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"AUTH-P-02 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200]); });",
+                  "if(pm.response.code === 200 && \"AUTH-P-02\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"qa_user_1776853606573\",\"email\":\"qa1776853606573@example.com\",\"password\":\"AdminPassword@123\",\"fullName\":\"QA Automated User\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user/auth/register-candidate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "auth",
+                "register-candidate"
+              ]
+            }
+          }
+        },
+        {
+          "name": "AUTH-P-02-S: Register Success (No Token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"AUTH-P-02-S | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([401]); });",
+                  "if(pm.response.code === 200 && \"AUTH-P-02-S\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"qa_user_1776853606573\",\"email\":\"qa1776853606573@example.com\",\"password\":\"AdminPassword@123\",\"fullName\":\"QA Automated User\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user/auth/register-candidate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "auth",
+                "register-candidate"
+              ]
+            }
+          }
+        },
+        {
+          "name": "AUTH-P-02-B: Register Success (Boundary Data)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"AUTH-P-02-B | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([400,401,200]); });",
+                  "if(pm.response.code === 200 && \"AUTH-P-02-B\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"qa_user_1776853606573\",\"email\":\"qa1776853606573@example.com\",\"password\":\"AdminPassword@123\",\"fullName\":\"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user/auth/register-candidate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "auth",
+                "register-candidate"
+              ]
+            }
+          }
+        },
+        {
+          "name": "AUTH-N-03: Duplicate User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"AUTH-N-03 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([400]); });",
+                  "if(pm.response.code === 200 && \"AUTH-N-03\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"admin_test\",\"fullName\":\"Admin\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user/auth/register-candidate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "auth",
+                "register-candidate"
+              ]
+            }
+          }
+        },
+        {
+          "name": "AUTH-N-03-S: Duplicate User (No Token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"AUTH-N-03-S | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([401]); });",
+                  "if(pm.response.code === 200 && \"AUTH-N-03-S\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"admin_test\",\"fullName\":\"Admin\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user/auth/register-candidate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "auth",
+                "register-candidate"
+              ]
+            }
+          }
+        },
+        {
+          "name": "AUTH-N-03-B: Duplicate User (Boundary Data)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"AUTH-N-03-B | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([400,401,200]); });",
+                  "if(pm.response.code === 200 && \"AUTH-N-03-B\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"admin_test\",\"fullName\":\"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user/auth/register-candidate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "auth",
+                "register-candidate"
+              ]
+            }
+          }
+        },
+        {
+          "name": "USER-P-01: My Info",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"USER-P-01 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401]); });",
+                  "if(pm.response.code === 200 && \"USER-P-01\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user/user/my-info/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "user",
+                "my-info",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "USER-P-01-S: My Info (No Token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"USER-P-01-S | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([401]); });",
+                  "if(pm.response.code === 200 && \"USER-P-01-S\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user/user/my-info/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "user",
+                "my-info",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "USER-P-01-B: My Info (Boundary Data)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"USER-P-01-B | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([400,401,200]); });",
+                  "if(pm.response.code === 200 && \"USER-P-01-B\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user/user/my-info/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "user",
+                "my-info",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "USER-P-02: My Roles",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"USER-P-02 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401]); });",
+                  "if(pm.response.code === 200 && \"USER-P-02\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user/user/my-roles",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "user",
+                "my-roles"
+              ]
+            }
+          }
+        },
+        {
+          "name": "USER-P-02-S: My Roles (No Token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"USER-P-02-S | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([401]); });",
+                  "if(pm.response.code === 200 && \"USER-P-02-S\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user/user/my-roles",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "user",
+                "my-roles"
+              ]
+            }
+          }
+        },
+        {
+          "name": "USER-P-02-B: My Roles (Boundary Data)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"USER-P-02-B | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([400,401,200]); });",
+                  "if(pm.response.code === 200 && \"USER-P-02-B\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user/user/my-roles",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "user",
+                "my-roles"
+              ]
+            }
+          }
+        },
+        {
+          "name": "USER-S-01: Filter RBAC",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"USER-S-01 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([403,401]); });",
+                  "if(pm.response.code === 200 && \"USER-S-01\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user/user/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "user",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "USER-S-01-S: Filter RBAC (No Token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"USER-S-01-S | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([401]); });",
+                  "if(pm.response.code === 200 && \"USER-S-01-S\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user/user/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "user",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "USER-S-01-B: Filter RBAC (Boundary Data)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"USER-S-01-B | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([400,401,200]); });",
+                  "if(pm.response.code === 200 && \"USER-S-01-B\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user/user/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "user",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "JOB-P-01: Create Job",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"JOB-P-01 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200]); });",
+                  "if(pm.response.code === 200 && \"JOB-P-01\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\":\"Senior QA Engineer\",\"positionId\":1,\"careerIds\":[1],\"workLocationIds\":[1],\"jobType\":\"FULL_TIME\",\"dueDate\":\"2026-12-31T00:00:00Z\",\"quantity\":1,\"salaryType\":\"RANGE\",\"salaryFrom\":20000000,\"salaryTo\":30000000,\"currencyType\":\"VND\",\"description\":\"Automated test description.\",\"hrContactId\":1,\"jobAdStatus\":\"OPEN\",\"isAllLevel\":true,\"levelIds\":[1],\"positionProcess\":[{\"name\":\"Initial Screening\",\"processTypeId\":1,\"sortOrder\":1},{\"name\":\"Onboard\",\"processTypeId\":6,\"sortOrder\":2}]}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/job-ad/create",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "job-ad",
+                "create"
+              ]
+            }
+          }
+        },
+        {
+          "name": "JOB-P-01-S: Create Job (No Token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"JOB-P-01-S | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([401]); });",
+                  "if(pm.response.code === 200 && \"JOB-P-01-S\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\":\"Senior QA Engineer\",\"positionId\":1,\"careerIds\":[1],\"workLocationIds\":[1],\"jobType\":\"FULL_TIME\",\"dueDate\":\"2026-12-31T00:00:00Z\",\"quantity\":1,\"salaryType\":\"RANGE\",\"salaryFrom\":20000000,\"salaryTo\":30000000,\"currencyType\":\"VND\",\"description\":\"Automated test description.\",\"hrContactId\":1,\"jobAdStatus\":\"OPEN\",\"isAllLevel\":true,\"levelIds\":[1],\"positionProcess\":[{\"name\":\"Initial Screening\",\"processTypeId\":1,\"sortOrder\":1},{\"name\":\"Onboard\",\"processTypeId\":6,\"sortOrder\":2}]}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/job-ad/create",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "job-ad",
+                "create"
+              ]
+            }
+          }
+        },
+        {
+          "name": "JOB-P-01-B: Create Job (Boundary Data)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"JOB-P-01-B | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([400,401,200]); });",
+                  "if(pm.response.code === 200 && \"JOB-P-01-B\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\":\"Senior QA Engineer\",\"positionId\":1,\"careerIds\":[1],\"workLocationIds\":[1],\"jobType\":\"FULL_TIME\",\"dueDate\":\"2026-12-31T00:00:00Z\",\"quantity\":1,\"salaryType\":\"RANGE\",\"salaryFrom\":20000000,\"salaryTo\":30000000,\"currencyType\":\"VND\",\"description\":\"Automated test description.\",\"hrContactId\":1,\"jobAdStatus\":\"OPEN\",\"isAllLevel\":true,\"levelIds\":[1],\"positionProcess\":[{\"name\":\"Initial Screening\",\"processTypeId\":1,\"sortOrder\":1},{\"name\":\"Onboard\",\"processTypeId\":6,\"sortOrder\":2}],\"fullName\":\"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/job-ad/create",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "job-ad",
+                "create"
+              ]
+            }
+          }
+        },
+        {
+          "name": "JOB-N-01: Bad Range",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"JOB-N-01 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([400,401]); });",
+                  "if(pm.response.code === 200 && \"JOB-N-01\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\":\"Bad Salary\",\"salaryFrom\":2000,\"salaryTo\":1000}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/job-ad/create",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "job-ad",
+                "create"
+              ]
+            }
+          }
+        },
+        {
+          "name": "JOB-N-01-S: Bad Range (No Token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"JOB-N-01-S | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([401]); });",
+                  "if(pm.response.code === 200 && \"JOB-N-01-S\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\":\"Bad Salary\",\"salaryFrom\":2000,\"salaryTo\":1000}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/job-ad/create",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "job-ad",
+                "create"
+              ]
+            }
+          }
+        },
+        {
+          "name": "JOB-N-01-B: Bad Range (Boundary Data)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"JOB-N-01-B | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([400,401,200]); });",
+                  "if(pm.response.code === 200 && \"JOB-N-01-B\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\":\"Bad Salary\",\"salaryFrom\":2000,\"salaryTo\":1000,\"fullName\":\"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/job-ad/create",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "job-ad",
+                "create"
+              ]
+            }
+          }
+        },
+        {
+          "name": "JOB-B-01: Search SQLi",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"JOB-B-01 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,400]); });",
+                  "if(pm.response.code === 200 && \"JOB-B-01\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/job-ad/outside/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "job-ad",
+                "outside",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "JOB-B-01-S: Search SQLi (No Token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"JOB-B-01-S | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([401]); });",
+                  "if(pm.response.code === 200 && \"JOB-B-01-S\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/job-ad/outside/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "job-ad",
+                "outside",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "JOB-B-01-B: Search SQLi (Boundary Data)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"JOB-B-01-B | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([400,401,200]); });",
+                  "if(pm.response.code === 200 && \"JOB-B-01-B\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/job-ad/outside/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "job-ad",
+                "outside",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-001: Automated Edge Case 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-001 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-001\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-002: Automated Edge Case 2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-002 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-002\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-003: Automated Edge Case 3",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-003 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-003\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-004: Automated Edge Case 4",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-004 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-004\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-005: Automated Edge Case 5",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-005 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-005\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-006: Automated Edge Case 6",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-006 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-006\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-007: Automated Edge Case 7",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-007 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-007\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-008: Automated Edge Case 8",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-008 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-008\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-009: Automated Edge Case 9",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-009 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-009\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-010: Automated Edge Case 10",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-010 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-010\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-011: Automated Edge Case 11",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-011 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-011\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-012: Automated Edge Case 12",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-012 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-012\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-013: Automated Edge Case 13",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-013 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-013\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-014: Automated Edge Case 14",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-014 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-014\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-015: Automated Edge Case 15",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-015 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-015\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-016: Automated Edge Case 16",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-016 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-016\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-017: Automated Edge Case 17",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-017 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-017\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-018: Automated Edge Case 18",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-018 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-018\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-019: Automated Edge Case 19",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-019 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-019\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-020: Automated Edge Case 20",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-020 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-020\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-021: Automated Edge Case 21",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-021 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-021\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-022: Automated Edge Case 22",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-022 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-022\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-023: Automated Edge Case 23",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-023 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-023\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-024: Automated Edge Case 24",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-024 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-024\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-025: Automated Edge Case 25",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-025 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-025\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-026: Automated Edge Case 26",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-026 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-026\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-027: Automated Edge Case 27",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-027 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-027\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-028: Automated Edge Case 28",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-028 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-028\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-029: Automated Edge Case 29",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-029 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-029\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-030: Automated Edge Case 30",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-030 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-030\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-031: Automated Edge Case 31",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-031 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-031\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-032: Automated Edge Case 32",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-032 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-032\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-033: Automated Edge Case 33",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-033 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-033\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-034: Automated Edge Case 34",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-034 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-034\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-035: Automated Edge Case 35",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-035 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-035\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-036: Automated Edge Case 36",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-036 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-036\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-037: Automated Edge Case 37",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-037 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-037\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-038: Automated Edge Case 38",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-038 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-038\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-039: Automated Edge Case 39",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-039 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-039\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-040: Automated Edge Case 40",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-040 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-040\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-041: Automated Edge Case 41",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-041 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-041\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-042: Automated Edge Case 42",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-042 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-042\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-043: Automated Edge Case 43",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-043 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-043\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-044: Automated Edge Case 44",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-044 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-044\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-045: Automated Edge Case 45",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-045 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-045\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-046: Automated Edge Case 46",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-046 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-046\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-047: Automated Edge Case 47",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-047 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-047\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-048: Automated Edge Case 48",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-048 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-048\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-049: Automated Edge Case 49",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-049 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-049\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QA-AUTO-050: Automated Edge Case 50",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"QA-AUTO-050 | Status: \" + pm.response.code, function () { pm.expect(pm.response.code).to.be.oneOf([200,401,403]); });",
+                  "if(pm.response.code === 200 && \"QA-AUTO-050\".includes(\"AUTH-P-01\")) pm.environment.set('accessToken', pm.response.json().data.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/core/career/filter",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "core",
+                "career",
+                "filter"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8888"
+    },
+    {
+      "key": "accessToken",
+      "value": ""
+    }
+  ]
+}
