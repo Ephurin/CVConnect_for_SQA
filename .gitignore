@@ -22,7 +22,7 @@ target/
 ### Other ###
 settings.xml
 .env
-logs
+logs/
 cvconnect.env
 
 # Dependencies
